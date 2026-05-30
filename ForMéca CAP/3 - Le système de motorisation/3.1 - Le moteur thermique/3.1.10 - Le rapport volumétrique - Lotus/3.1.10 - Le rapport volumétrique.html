@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le moteur thermique – Leçon 10 – Rapport volumétrique et cycle à 4 temps – Forméca</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Century Gothic', 'Futura', Arial, sans-serif; background: linear-gradient(135deg, #e8f5f8 0%, #c5e5ec 100%); min-height: 100vh; padding: 20px; line-height: 1.6; color: #003d5c; }
+        .main-wrapper { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 1200px; margin: 0 auto; }
+        .inner-content { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* HEADER */
+        .header { background: linear-gradient(135deg, #c5e5ec 0%, #a8d8e8 100%); border: 2px solid #7fc4d8; border-radius: 15px; padding: 20px 30px; margin-bottom: 20px; position: relative; }
+        .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .badge-elearning { display: flex; align-items: center; gap: 10px; background: white; padding: 10px 15px; border-radius: 8px; font-size: 14px; color: #003d5c; font-weight: 600; }
+        .badge-elearning .icon { font-size: 40px; line-height: 1; }
+        .logo-formeca { height: 80px; width: auto; }
+        .title { font-size: 36px; color: #003d5c; text-align: center; margin: 15px 0 10px 0; font-weight: bold; }
+        .subtitle { text-align: center; color: #004d6b; font-size: 16px; font-weight: 500; }
+
+        /* INTRO COLUMNS */
+        .intro-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .fiche-box, .sommaire-box { background: linear-gradient(135deg, #e8f5f8 0%, #d0edf5 100%); border: 2px solid #7fc4d8; border-radius: 12px; padding: 20px; }
+        .fiche-box h3, .sommaire-box h3 { color: #003d5c; background: rgba(255,255,255,0.7); padding: 10px; border-radius: 6px; text-align: center; margin-bottom: 15px; font-size: 20px; }
+        .fiche-box table { width: 100%; border-collapse: collapse; }
+        .fiche-box td { padding: 8px 5px; color: #003d5c; font-size: 15px; border-bottom: 1px solid rgba(127,196,216,0.3); }
+        .fiche-box td:first-child { font-weight: bold; width: 40%; }
+        .sommaire-box ol { margin-left: 20px; color: #003d5c; padding: 0; }
+        .sommaire-box li { padding: 6px 0; font-size: 15px; }
+        .sommaire-box a { color: #003d5c; text-decoration: none; transition: color 0.2s; }
+        .sommaire-box a:hover { color: #7fc4d8; text-decoration: underline; }
+
+        /* OBJECTIFS */
+        .objectifs-section { background: white; border: 2px solid #7fc4d8; border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+        .objectifs-section h2 { color: #003d5c; font-size: 22px; margin-bottom: 15px; text-align: center; }
+        .objectifs-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+        .objectif-badge { padding: 12px 20px; border-radius: 8px; text-align: center; color: white; font-weight: bold; flex: 1; min-width: 200px; font-size: 14px; transition: transform 0.2s; }
+        .objectif-badge:hover { transform: translateY(-2px); }
+        .badge-bleu1 { background: #9fd4e2; }
+        .badge-bleu2 { background: #7fc4d8; }
+        .badge-bleu3 { background: #5ab3c7; }
+        .badge-bleu4 { background: #4a9bb5; }
+
+        /* CONTENT SECTIONS */
+        .content-section { background: linear-gradient(135deg, #f0f9fb 0%, #e8f5f8 100%); border-radius: 15px; padding: 30px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .content-section h2 { color: #003d5c; font-size: 28px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #7fc4d8; }
+        .content-section p { color: #004d6b; margin-bottom: 15px; line-height: 1.8; }
+        .content-section ul { margin: 10px 0 15px 30px; color: #004d6b; }
+        .content-section li { margin-bottom: 8px; }
+        .page-badge { display: inline-block; background: linear-gradient(135deg, #7fc4d8, #5ab3c7); color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 12px; }
+
+        /* Schéma cycle 4 temps */
+        .cycle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .cycle-card { background: white; border: 2px solid #7fc4d8; border-radius: 12px; padding: 18px; text-align: center; transition: transform 0.2s; }
+        .cycle-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .cycle-card .num { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, #7fc4d8, #5ab3c7); color: white; border-radius: 50%; font-size: 18px; font-weight: bold; line-height: 36px; margin-bottom: 8px; }
+        .cycle-card h4 { color: #003d5c; font-size: 16px; margin-bottom: 6px; }
+        .cycle-card p { color: #004d6b; font-size: 14px; margin: 0; }
+
+        /* À RETENIR */
+        .retenir-box { background: linear-gradient(135deg, #fff4d9 0%, #ffe9a8 100%); border-left: 4px solid #f39c12; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .retenir-box h4 { color: #003d5c; font-size: 17px; margin-bottom: 10px; }
+        .retenir-box ul { list-style: none; padding: 0; margin: 0; }
+        .retenir-box li { color: #003d5c; padding: 5px 0; padding-left: 25px; position: relative; font-size: 15px; }
+        .retenir-box li:before { content: "✔"; position: absolute; left: 0; color: #f39c12; font-weight: bold; }
+
+        /* PDF SECTION */
+        .pdf-section { background: linear-gradient(135deg, #f0f9fb 0%, #e8f5f8 100%); border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); text-align: center; }
+        .pdf-btn { display: inline-block; background: #7fc4d8; color: white; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; transition: all 0.2s; }
+        .pdf-btn:hover { background: #6ab3c7; transform: translateY(-2px); }
+
+        /* BRAVO MODULE */
+        .bravo-section { background: linear-gradient(135deg, #e8f5f8 0%, #c5e5ec 100%); border: 2px solid #7fc4d8; border-radius: 15px; padding: 30px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .bravo-section h2 { color: #003d5c; font-size: 26px; margin-bottom: 15px; text-align: center; }
+        .bravo-section p { color: #004d6b; margin-bottom: 12px; line-height: 1.8; }
+        .bravo-section ul { margin: 10px 0 15px 30px; color: #004d6b; }
+        .bravo-section li { margin-bottom: 8px; }
+        .bravo-section .suite-box { background: white; border: 2px solid #7fc4d8; border-radius: 10px; padding: 15px 20px; margin-top: 15px; }
+        .bravo-section .suite-box h4 { color: #003d5c; margin-bottom: 8px; }
+        .module-termine-badge { display: inline-block; background: linear-gradient(135deg, #4a9bb5, #003d5c); color: white; padding: 10px 25px; border-radius: 25px; font-size: 16px; font-weight: bold; margin: 15px auto; display: block; text-align: center; }
+
+        /* QCM */
+        .qcm-section { background: linear-gradient(135deg, #f0f9fb 0%, #e0f2f7 100%); border-radius: 15px; padding: 30px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .qcm-section h2 { color: #003d5c; font-size: 28px; margin-bottom: 10px; text-align: center; padding-bottom: 10px; border-bottom: 3px solid #7fc4d8; }
+        .qcm-intro { text-align: center; color: #004d6b; margin-bottom: 25px; font-size: 15px; }
+        .question-box { background: white; border: 2px solid #e8f5f8; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .question-box.answered-correct { border-color: #4caf50; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); }
+        .question-box.answered-wrong { border-color: #f44336; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
+        .question-box h3 { color: #003d5c; font-size: 18px; margin-bottom: 12px; }
+        .question-box > p { margin-bottom: 15px; font-size: 16px; font-weight: 500; color: #003d5c; }
+        .answer-option { background: white; border: 2px solid #7fc4d8; border-radius: 8px; padding: 12px 18px; margin: 10px 0; cursor: pointer; transition: all 0.2s; font-size: 15px; color: #003d5c; }
+        .answer-option:hover { background: #e8f5f8; transform: translateX(5px); }
+        .answer-option.selected { border-color: #003d5c; background: #e3f2fd; }
+        .answer-option.correct-selected { border-color: #4caf50; background: #c8e6c9; }
+        .answer-option.wrong-selected { border-color: #f44336; background: #ffcdd2; }
+        .validate-btn { background: #7fc4d8; color: white; border: none; border-radius: 8px; padding: 10px 30px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: all 0.2s; font-family: 'Century Gothic', 'Futura', Arial, sans-serif; }
+        .validate-btn:hover { background: #6ab3c7; transform: translateY(-2px); }
+        .validate-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .feedback { margin-top: 15px; padding: 15px 20px; border-radius: 8px; display: none; font-size: 15px; font-weight: 500; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .feedback.wrong { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .score-box { background: linear-gradient(135deg, #c5e5ec 0%, #a8d8e8 100%); border: 2px solid #7fc4d8; border-radius: 15px; padding: 30px; margin-top: 25px; text-align: center; display: none; }
+        .score-box.show { display: block; }
+        .score-box h3 { font-size: 24px; color: #003d5c; margin-bottom: 10px; }
+        .score-box p { font-size: 18px; color: #003d5c; }
+
+        /* FOOTER */
+        footer { background: #003d5c; color: white; text-align: center; padding: 20px; font-size: 14px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .intro-columns { grid-template-columns: 1fr; }
+            .objectifs-badges { flex-direction: column; }
+            .objectif-badge { min-width: unset; }
+            .title { font-size: 26px; }
+            .content-section h2, .qcm-section h2 { font-size: 22px; }
+            .inner-content { padding: 15px; }
+            .content-section, .qcm-section { padding: 20px; }
+            body { padding: 10px; }
+            .cycle-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="inner-content">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-top">
+                <div class="badge-elearning">
+                    <span class="icon">🔧</span>
+                    <span>Cours en ligne</span>
+                </div>
+                <img src="data:image/webp;base64,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" alt="Logo Forméca" class="logo-formeca">
+            </div>
+            <h1 class="title">3 - Le système de motorisation</h1>
+            <p class="subtitle">Module 3.1 – Le moteur thermique</p>
+        </div>
+
+        <!-- FICHE + SOMMAIRE -->
+        <div class="intro-columns">
+            <div class="fiche-box">
+                <h3>📋 Fiche du cours</h3>
+                <table>
+                    <tr><td>Format :</td><td>Livre interactif</td></tr>
+                    <tr><td>Public :</td><td>Bac Pro</td></tr>
+                    <tr><td>Durée indicative :</td><td>1h15 à 1h30</td></tr>
+                    <tr><td>Leçon 3.1.10 :</td><td>Rapport volumétrique et cycle à 4 temps</td></tr>
+                </table>
+            </div>
+            <div class="sommaire-box">
+                <h3>📑 Sommaire</h3>
+                <ol>
+                    <li><a href="#section1">Notion de rapport volumétrique</a></li>
+                    <li><a href="#section2">Effet du rapport volumétrique</a></li>
+                    <li><a href="#section3">Principe du cycle à 4 temps</a></li>
+                    <li><a href="#section4">Les quatre temps du cycle</a></li>
+                    <li><a href="#section5">Exemple métier : rendement et diagnostic</a></li>
+                    <li><a href="#evaluation">Évaluation formative (non notée)</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- OBJECTIFS -->
+        <div class="objectifs-section">
+            <h2>🎯 Objectifs pédagogiques</h2>
+            <div class="objectifs-badges">
+                <div class="objectif-badge badge-bleu1">Définir le rapport volumétrique</div>
+                <div class="objectif-badge badge-bleu2">Comprendre ses effets sur le moteur</div>
+                <div class="objectif-badge badge-bleu3">Décrire le cycle à 4 temps</div>
+                <div class="objectif-badge badge-bleu4">Relier cycle et diagnostic moteur</div>
+            </div>
+        </div>
+
+        <!-- PDF -->
+        <div class="pdf-section">
+            <p style="font-style: italic; color: #004d6b; margin-bottom: 15px;"><strong>📄 Note :</strong> Les schémas sont disponibles dans le cours complet en PDF.</p>
+            <a href="#" class="pdf-btn">📥 Télécharger le cours complet en PDF</a>
+        </div>
+
+        <!-- PAGE 1 -->
+        <div class="content-section" id="section1">
+            <span class="page-badge">📄 Page 1 / 5</span>
+            <h2>Notion de rapport volumétrique</h2>
+            <div class="section-content">
+                <p>Le <strong>rapport volumétrique</strong> est le rapport entre le <strong>volume total du cylindre</strong> (piston au point mort bas) et le <strong>volume résiduel</strong> (piston au point mort haut, appelé volume mort ou chambre de combustion).</p>
+                <p>Il influence directement le <strong>rendement thermique</strong> et le comportement général du moteur. Plus ce rapport est élevé, plus la compression du mélange air-carburant est importante avant l'allumage.</p>
+            </div>
+            <div class="retenir-box">
+                <h4>📌 À RETENIR</h4>
+                <ul>
+                    <li>Le rapport volumétrique est un rapport de volumes</li>
+                    <li>Il influence le rendement</li>
+                    <li>Il dépend de la conception du moteur</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="content-section" id="section2">
+            <span class="page-badge">📄 Page 2 / 5</span>
+            <h2>Effet du rapport volumétrique</h2>
+            <div class="section-content">
+                <p>Un rapport volumétrique <strong>élevé</strong> permet une meilleure efficacité thermique : le mélange est davantage comprimé, ce qui améliore la combustion et le rendement global.</p>
+                <p>Cependant, un rapport trop élevé peut provoquer une auto-inflammation prématurée du mélange, appelée <strong>cliquetis</strong>. Ce phénomène est destructeur pour le moteur et impose des contraintes sur le <strong>carburant utilisé</strong> (indice d'octane) et le réglage de l'allumage.</p>
+                <p>Les moteurs diesel ont un rapport volumétrique bien plus élevé que les moteurs essence, car ils fonctionnent sur le principe de l'auto-inflammation.</p>
+            </div>
+            <div class="retenir-box">
+                <h4>📌 À RETENIR</h4>
+                <ul>
+                    <li>Rapport élevé = meilleur rendement thermique</li>
+                    <li>Risque de cliquetis si rapport trop élevé</li>
+                    <li>Dépend du carburant et du type de moteur</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="content-section" id="section3">
+            <span class="page-badge">📄 Page 3 / 5</span>
+            <h2>Principe du cycle à 4 temps</h2>
+            <div class="section-content">
+                <p>Le moteur à 4 temps fonctionne selon une <strong>succession de quatre phases distinctes</strong>, chacune correspondant à un déplacement du piston (montée ou descente dans le cylindre).</p>
+                <p>Ces quatre phases se répètent en continu à chaque cycle complet du moteur, assurant une production régulière d'énergie mécanique.</p>
+                <p>Le cycle complet nécessite <strong>deux tours complets du vilebrequin</strong>, soit 720° de rotation.</p>
+            </div>
+            <div class="retenir-box">
+                <h4>📌 À RETENIR</h4>
+                <ul>
+                    <li>Le cycle comporte 4 phases successives</li>
+                    <li>Il est cyclique et se répète en continu</li>
+                    <li>Il conditionne le fonctionnement du moteur</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PAGE 4 -->
+        <div class="content-section" id="section4">
+            <span class="page-badge">📄 Page 4 / 5</span>
+            <h2>Les quatre temps du cycle</h2>
+            <div class="section-content">
+                <p>Les quatre temps se déroulent sur <strong>deux tours de vilebrequin</strong> (720°) et se succèdent dans un ordre immuable :</p>
+                <div class="cycle-grid">
+                    <div class="cycle-card">
+                        <div class="num">1</div>
+                        <h4>Admission</h4>
+                        <p>Le piston descend, la soupape d'admission s'ouvre : le mélange air-carburant (ou l'air seul pour un diesel) entre dans le cylindre.</p>
+                    </div>
+                    <div class="cycle-card">
+                        <div class="num">2</div>
+                        <h4>Compression</h4>
+                        <p>Les soupapes se ferment, le piston remonte et comprime le mélange dans la chambre de combustion.</p>
+                    </div>
+                    <div class="cycle-card">
+                        <div class="num">3</div>
+                        <h4>Combustion – Détente</h4>
+                        <p>L'allumage enflamme le mélange comprimé. Les gaz se détendent brusquement et poussent le piston vers le bas : c'est le seul temps moteur.</p>
+                    </div>
+                    <div class="cycle-card">
+                        <div class="num">4</div>
+                        <h4>Échappement</h4>
+                        <p>La soupape d'échappement s'ouvre, le piston remonte et expulse les gaz brûlés hors du cylindre.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="retenir-box">
+                <h4>📌 À RETENIR</h4>
+                <ul>
+                    <li>Admission : entrée du mélange (piston descend)</li>
+                    <li>Compression : mélange comprimé (piston monte)</li>
+                    <li>Combustion-Détente : seul temps moteur (piston descend)</li>
+                    <li>Échappement : évacuation des gaz (piston monte)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PAGE 5 -->
+        <div class="content-section" id="section5">
+            <span class="page-badge">📄 Page 5 / 5</span>
+            <h2>Exemple métier : rendement et diagnostic</h2>
+            <div class="section-content">
+                <p>Un <strong>mauvais rendement moteur</strong> peut être lié à un rapport volumétrique inadapté (usure des segments, culasse voilée) ou à un <strong>défaut de combustion</strong> (injecteurs encrassés, allumage défaillant).</p>
+                <p>La maîtrise du cycle à 4 temps permet au technicien d'<strong>orienter son diagnostic</strong> vers le bon temps : un manque de puissance en phase de détente oriente vers un problème d'injection ou d'allumage, tandis qu'une compression insuffisante oriente vers l'usure mécanique.</p>
+                <p>L'analyse de chaque phase du cycle est donc une <strong>grille de lecture essentielle</strong> pour tout diagnostic moteur.</p>
+            </div>
+            <div class="retenir-box">
+                <h4>📌 À RETENIR</h4>
+                <ul>
+                    <li>Le rendement dépend du bon déroulement de chaque temps</li>
+                    <li>Le rapport volumétrique est déterminant pour la compression</li>
+                    <li>Le diagnostic s'appuie sur la compréhension du cycle</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ÉVALUATION -->
+        <div class="qcm-section" id="evaluation">
+            <h2>📝 Évaluation formative – Leçon 10</h2>
+            <p class="qcm-intro">(Non notée – Pour vérifier vos connaissances)</p>
+
+            <div class="question-box" id="q1">
+                <h3>Question 1</h3>
+                <p>Le rapport volumétrique est :</p>
+                <div class="answer-option" onclick="selectAnswer(1, 1)">Une pression</div>
+                <div class="answer-option" onclick="selectAnswer(1, 2)">Un rapport de volumes</div>
+                <div class="answer-option" onclick="selectAnswer(1, 3)">Une température</div>
+                <button class="validate-btn" id="btn1" onclick="validateQuestion(1)">Valider ma réponse</button>
+                <div class="feedback" id="feedback1"></div>
+            </div>
+
+            <div class="question-box" id="q2">
+                <h3>Question 2</h3>
+                <p>Un rapport volumétrique élevé permet :</p>
+                <div class="answer-option" onclick="selectAnswer(2, 1)">Une baisse du rendement</div>
+                <div class="answer-option" onclick="selectAnswer(2, 2)">Une meilleure efficacité thermique</div>
+                <div class="answer-option" onclick="selectAnswer(2, 3)">Une baisse de compression</div>
+                <button class="validate-btn" id="btn2" onclick="validateQuestion(2)">Valider ma réponse</button>
+                <div class="feedback" id="feedback2"></div>
+            </div>
+
+            <div class="question-box" id="q3">
+                <h3>Question 3</h3>
+                <p>Le cycle à 4 temps comporte :</p>
+                <div class="answer-option" onclick="selectAnswer(3, 1)">2 phases</div>
+                <div class="answer-option" onclick="selectAnswer(3, 2)">4 phases</div>
+                <div class="answer-option" onclick="selectAnswer(3, 3)">6 phases</div>
+                <button class="validate-btn" id="btn3" onclick="validateQuestion(3)">Valider ma réponse</button>
+                <div class="feedback" id="feedback3"></div>
+            </div>
+
+            <div class="question-box" id="q4">
+                <h3>Question 4</h3>
+                <p>Le cycle complet à 4 temps se déroule sur :</p>
+                <div class="answer-option" onclick="selectAnswer(4, 1)">1 tour de vilebrequin</div>
+                <div class="answer-option" onclick="selectAnswer(4, 2)">2 tours de vilebrequin</div>
+                <div class="answer-option" onclick="selectAnswer(4, 3)">4 tours de vilebrequin</div>
+                <button class="validate-btn" id="btn4" onclick="validateQuestion(4)">Valider ma réponse</button>
+                <div class="feedback" id="feedback4"></div>
+            </div>
+
+            <div class="score-box" id="scoreBox">
+                <h3>🎯 Résultat final</h3>
+                <p id="scoreText"></p>
+            </div>
+        </div>
+
+        <!-- BRAVO MODULE TERMINÉ -->
+        <div class="bravo-section">
+            <h2>🏆 Module « Le moteur thermique » terminé !</h2>
+            <p>Félicitations ! Vous avez complété l'ensemble des 10 leçons du module. Ce parcours vous a permis de :</p>
+            <ul>
+                <li>Comprendre le <strong>rôle et le fonctionnement global</strong> d'un moteur thermique</li>
+                <li>Identifier les <strong>principaux organes</strong> (bloc, culasse, éléments mobiles, distribution)</li>
+                <li>Appréhender les notions clés de <strong>cylindrée, rapport volumétrique et cycle à 4 temps</strong></li>
+                <li>Acquérir les <strong>bases indispensables au raisonnement diagnostic moteur</strong></li>
+            </ul>
+            <p style="margin-top: 12px;">Vous disposez désormais des connaissances fondamentales pour analyser le comportement d'un moteur, comprendre les choix techniques des constructeurs, et préparer l'étude des systèmes mécaniques qui exploitent l'énergie produite.</p>
+            <div class="module-termine-badge">✅ MODULE TERMINÉ – Niveau CAP / Bac Pro</div>
+            <div class="suite-box">
+                <h4>Suite logique du parcours :</h4>
+                <ul>
+                    <li>Le circuit de refroidissement</li>
+                    <li>Le circuit de graissage</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2025 <strong>Forméca</strong> – Formation en mécanique automobile | Tous droits réservés</p>
+    </footer>
+</div>
+
+<script>
+    const correctAnswers = { 1: 2, 2: 2, 3: 2, 4: 2 };
+    const totalQuestions = 4;
+    let userAnswers = {};
+    let validatedQuestions = {};
+
+    function selectAnswer(questionNum, answerNum) {
+        if (validatedQuestions[questionNum]) return;
+        userAnswers[questionNum] = answerNum;
+        const questionBox = document.getElementById('q' + questionNum);
+        const options = questionBox.querySelectorAll('.answer-option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        options[answerNum - 1].classList.add('selected');
+    }
+
+    function validateQuestion(questionNum) {
+        if (!userAnswers[questionNum]) {
+            alert('Veuillez sélectionner une réponse avant de valider.');
+            return;
+        }
+        validatedQuestions[questionNum] = true;
+        const questionBox = document.getElementById('q' + questionNum);
+        const feedback = document.getElementById('feedback' + questionNum);
+        const btn = document.getElementById('btn' + questionNum);
+        const options = questionBox.querySelectorAll('.answer-option');
+        btn.disabled = true;
+
+        const isCorrect = userAnswers[questionNum] === correctAnswers[questionNum];
+
+        if (isCorrect) {
+            questionBox.classList.add('answered-correct');
+            options[userAnswers[questionNum] - 1].classList.remove('selected');
+            options[userAnswers[questionNum] - 1].classList.add('correct-selected');
+            feedback.className = 'feedback show correct';
+            const messages = {
+                1: '✅ Bravo ! Le rapport volumétrique compare deux volumes.',
+                2: '✅ Exact ! Le rendement thermique est amélioré.',
+                3: '✅ Bonne réponse ! Le cycle comporte bien 4 temps.',
+                4: '✅ Correct ! Il faut deux tours complets de vilebrequin.'
+            };
+            feedback.innerHTML = messages[questionNum];
+        } else {
+            questionBox.classList.add('answered-wrong');
+            options[userAnswers[questionNum] - 1].classList.remove('selected');
+            options[userAnswers[questionNum] - 1].classList.add('wrong-selected');
+            feedback.className = 'feedback show wrong';
+            feedback.innerHTML = '❌ Mauvaise réponse. Révisez cette partie du cours.';
+        }
+
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        checkAllAnswered();
+    }
+
+    function checkAllAnswered() {
+        if (Object.keys(validatedQuestions).length === totalQuestions) {
+            setTimeout(displayScore, 500);
+        }
+    }
+
+    function displayScore() {
+        let correct = 0;
+        for (let i = 1; i <= totalQuestions; i++) {
+            if (userAnswers[i] === correctAnswers[i]) correct++;
+        }
+        const scoreBox = document.getElementById('scoreBox');
+        const scoreText = document.getElementById('scoreText');
+        const percentage = Math.round((correct / totalQuestions) * 100);
+
+        let message = '';
+        if (percentage === 100) {
+            message = `Excellent ! Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Vous maîtrisez parfaitement la leçon !`;
+        } else if (percentage >= 75) {
+            message = `Très bien ! Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Bonne compréhension de la leçon.`;
+        } else if (percentage >= 50) {
+            message = `Pas mal ! Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Révisez les points manqués.`;
+        } else {
+            message = `Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Il est recommandé de revoir le cours attentivement.`;
+        }
+
+        scoreText.textContent = message;
+        scoreBox.classList.add('show');
+        scoreBox.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

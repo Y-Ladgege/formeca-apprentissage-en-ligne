@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forméca — Évaluation finale — Mécanique générale — QCM /20</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Century Gothic','Futura',Arial,sans-serif;
+      background:linear-gradient(135deg,#e8f5f8 0%,#c5e5ec 100%);
+      min-height:100vh;padding:20px;line-height:1.6;color:#003d5c
+    }
+    .main-wrapper{
+      background:#fff;border-radius:20px;overflow:hidden;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+      max-width:1200px;margin:0 auto
+    }
+    .inner-content{max-width:1000px;margin:0 auto;padding:20px}
+
+    /* HEADER Forméca (même rendu que tes leçons) */
+    .header{
+      background:linear-gradient(135deg,#c5e5ec 0%,#a8d8e8 100%);
+      border:2px solid #7fc4d8;border-radius:15px;
+      padding:20px 30px;margin-bottom:20px
+    }
+    .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+    .badge-elearning{
+      display:flex;align-items:center;gap:10px;background:#fff;
+      padding:10px 15px;border-radius:8px;font-size:14px;
+      color:#003d5c;font-weight:600
+    }
+    .badge-elearning .icon{font-size:40px;line-height:1;color:#003d5c}
+    .logo-formeca{height:80px;width:auto}
+    .title{font-size:36px;color:#003d5c;text-align:center;margin:15px 0 10px 0;font-weight:bold}
+    .subtitle{text-align:center;color:#004d6b;font-size:16px;font-weight:500}
+
+    /* Bloc consignes "pro" */
+    .consignes{
+      background:rgba(255,255,255,0.65);
+      border:1px solid rgba(127,196,216,0.7);
+      border-radius:12px;padding:12px 16px;margin-top:12px
+    }
+    .consignes ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .consignes li{font-size:14px;color:#003d5c}
+    .consignes li span{font-weight:700}
+    @media (max-width:700px){
+      .consignes ul{grid-template-columns:1fr}
+    }
+
+    /* QCM */
+    .qcm-section{
+      background:linear-gradient(135deg,#f0f9fb 0%,#e0f2f7 100%);
+      border-radius:15px;padding:30px;margin-bottom:20px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.08)
+    }
+    .qcm-section h2{
+      color:#003d5c;font-size:28px;margin-bottom:10px;text-align:center;
+      padding-bottom:10px;border-bottom:3px solid #7fc4d8
+    }
+    .qcm-intro{text-align:center;color:#004d6b;margin-bottom:25px;font-size:15px}
+    .question-box{
+      background:#fff;border:2px solid #e8f5f8;border-radius:12px;
+      padding:25px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.05)
+    }
+    .question-box.answered-correct{
+      border-color:#4caf50;background:linear-gradient(135deg,#e8f5e9 0%,#c8e6c9 100%)
+    }
+    .question-box.answered-wrong{
+      border-color:#f44336;background:linear-gradient(135deg,#ffebee 0%,#ffcdd2 100%)
+    }
+    .question-box h3{color:#003d5c;font-size:18px;margin-bottom:12px}
+    .question-box > p{margin-bottom:15px;font-size:16px;font-weight:500;color:#003d5c}
+    .answer-option{
+      background:#fff;border:2px solid #7fc4d8;border-radius:8px;
+      padding:12px 18px;margin:10px 0;cursor:pointer;transition:all .2s;font-size:15px
+    }
+    .answer-option:hover{background:#e8f5f8;transform:translateX(5px)}
+    .answer-option.selected{border-color:#003d5c;background:#e3f2fd}
+    .answer-option.correct-selected{border-color:#4caf50;background:#c8e6c9}
+    .answer-option.wrong-selected{border-color:#f44336;background:#ffcdd2}
+
+    .validate-btn{
+      background:#7fc4d8;color:#fff;border:none;border-radius:8px;
+      padding:10px 30px;font-size:16px;font-weight:bold;cursor:pointer;
+      margin-top:15px;transition:all .2s;font-family:'Century Gothic','Futura',Arial,sans-serif
+    }
+    .validate-btn:hover{background:#6ab3c7;transform:translateY(-2px)}
+    .validate-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+
+    .feedback{
+      margin-top:15px;padding:15px 20px;border-radius:8px;display:none;
+      font-size:15px;font-weight:500
+    }
+    .feedback.show{display:block}
+    .feedback.correct{background:#d4edda;color:#155724;border-left:4px solid #28a745}
+    .feedback.wrong{background:#f8d7da;color:#721c24;border-left:4px solid #dc3545}
+
+    /* Résultat final + bilan */
+    .score-box{
+      background:linear-gradient(135deg,#c5e5ec 0%,#a8d8e8 100%);
+      border:2px solid #7fc4d8;border-radius:15px;padding:25px;margin-top:25px;
+      display:none
+    }
+    .score-box.show{display:block}
+    .score-box h3{font-size:24px;color:#003d5c;margin-bottom:10px;text-align:center}
+    .score-box p{font-size:16px;color:#003d5c;margin:8px 0}
+    .badge{
+      display:inline-block;padding:6px 12px;border-radius:999px;font-weight:bold;margin:8px 0
+    }
+    .badge.ok{background:#c8e6c9;color:#1b5e20}
+    .badge.mid{background:#fff3cd;color:#7a5a00}
+    .badge.no{background:#ffcdd2;color:#7f0000}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .card{background:#fff;border:1px solid rgba(127,196,216,0.8);border-radius:12px;padding:12px}
+    .card h4{margin:0 0 8px 0;font-size:16px;color:#003d5c}
+    .card ul{margin:0 0 0 18px;padding:0}
+    @media(max-width:768px){
+      .inner-content{padding:15px}
+      .title{font-size:26px}
+      .qcm-section{padding:20px}
+      .qcm-section h2{font-size:22px}
+      body{padding:10px}
+      .grid{grid-template-columns:1fr}
+    }
+
+    footer{background:#003d5c;color:#fff;text-align:center;padding:20px;font-size:14px}
+    .muted{color:#004d6b}
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <div class="inner-content">
+
+      <!-- HEADER -->
+      <div class="header">
+        <div class="header-top">
+          <div class="badge-elearning">
+            <span class="icon">📝</span>
+            <span>Évaluation finale</span>
+          </div>
+
+          <!-- Logo (base64) : tu peux remplacer par un fichier si tu préfères -->
+          <img
+            src="data:image/webp;base64,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"
+            alt="Logo Forméca"
+            class="logo-formeca"
+          />
+        </div>
+
+        <h1 class="title">Évaluation finale</h1>
+        <p class="subtitle">Chapitre — La mécanique générale — QCM noté sur 20 — Niveau CAP / BEP / Bac Pro</p>
+
+        <div class="consignes">
+          <ul>
+            <li>✅ <span>Durée conseillée :</span> 15 à 20 minutes</li>
+            <li>🎯 <span>Validation :</span> acquis si ≥ <strong>16/20</strong> (minimum : <strong>12/20</strong>)</li>
+            <li>📌 <span>Consigne :</span> répondre sans aide, puis relire les points faibles</li>
+            <li>🔁 <span>Recommandation :</span> refaire le QCM après révision jusqu’à ≥ 12/20</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- QCM -->
+      <div class="qcm-section" id="evaluation">
+        <h2>🧾 QCM final — Mécanique générale</h2>
+        <p class="qcm-intro">(Noté sur 20 — 1 point par question — Correction immédiate + bilan par thème)</p>
+
+        <div id="questionsArea"></div>
+
+        <div class="score-box" id="scoreBox">
+          <h3>🎯 Résultat final</h3>
+          <p id="scoreText"></p>
+          <p id="verdictText"></p>
+
+          <div class="grid">
+            <div class="card">
+              <h4>✅ Points forts</h4>
+              <ul id="strengths"></ul>
+            </div>
+            <div class="card">
+              <h4>⚠️ Points à travailler</h4>
+              <ul id="weaknesses"></ul>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h4>📌 Conseils de révision ciblés</h4>
+            <ul id="advice"></ul>
+            <p class="muted" style="margin-top:8px">Astuce formateur : relis la leçon correspondante, puis refais le QCM pour vérifier la progression.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 <strong>Forméca</strong> — Formation en mécanique automobile | Tous droits réservés</p>
+    </footer>
+  </div>
+
+<script>
+/* =========================
+   QCM /20 — 5 thèmes x 4
+   ========================= */
+
+const questions = [
+  // SERRAGE (1-4)
+  {theme:"Serrage", q:"Une vis permet :", a:["Un assemblage définitif","Un assemblage démontable","Une soudure"], good:1,
+   ok:"✅ Exact : vis/écrou → assemblage démontable.", ko:"❌ À revoir : la vis sert à assembler démontable."},
+  {theme:"Serrage", q:"Le filetage intérieur s'appelle :", a:["Un écrou","Un taraudage","Une rondelle"], good:1,
+   ok:"✅ Oui : filetage intérieur = taraudage.", ko:"❌ À revoir : taraudage = filetage intérieur."},
+  {theme:"Serrage", q:"Le pas d’un filetage correspond :", a:["Au diamètre","À la distance entre deux filets","À la longueur de la vis"], good:1,
+   ok:"✅ Oui : pas = distance entre deux filets.", ko:"❌ À revoir : pas ≠ diamètre, pas = distance entre filets."},
+  {theme:"Serrage", q:"Le couple de serrage s’exprime en :", a:["kg","N·m","bar"], good:1,
+   ok:"✅ Oui : le couple s’exprime en newton-mètre (N·m).", ko:"❌ À revoir : couple = N·m."},
+
+  // ASSEMBLAGES (5-8)
+  {theme:"Assemblages", q:"Un assemblage sert à :", a:["Décorer une pièce","Lier des pièces mécaniques","Lubrifier un mécanisme"], good:1,
+   ok:"✅ Exact : un assemblage lie des pièces.", ko:"❌ À revoir : fonction = lier/maintenir des pièces."},
+  {theme:"Assemblages", q:"Un assemblage démontable permet :", a:["Un démontage sans détérioration","Une soudure","Un assemblage définitif"], good:0,
+   ok:"✅ Oui : démontable = démontage sans destruction.", ko:"❌ À revoir : démontable = démontage sans détérioration."},
+  {theme:"Assemblages", q:"Le freinage par obstacle est :", a:["Une sécurité relative","Une sécurité absolue","Inutile"], good:1,
+   ok:"✅ Oui : obstacle (goupille, rondelle frein, etc.) = sécurité plus sûre.", ko:"❌ À revoir : obstacle = sécurité forte/“absolue” dans ton cours."},
+  {theme:"Assemblages", q:"Le collage mécanique doit travailler :", a:["En pelage","Au cisaillement","En torsion"], good:1,
+   ok:"✅ Exact : collage idéal en cisaillement.", ko:"❌ À revoir : éviter le pelage, privilégier cisaillement."},
+
+  // ROULEMENTS (9-12)
+  {theme:"Roulements", q:"Un roulement permet :", a:["D’augmenter le frottement","Un fonctionnement avec faible frottement","De bloquer l’arbre"], good:1,
+   ok:"✅ Oui : roulement = faible frottement.", ko:"❌ À revoir : le roulement réduit les frottements."},
+  {theme:"Roulements", q:"Un roulement comporte notamment :", a:["Une seule bague","Deux bagues (intérieure et extérieure)","Aucune bague"], good:1,
+   ok:"✅ Exact : bague intérieure + bague extérieure.", ko:"❌ À revoir : 2 bagues + éléments roulants."},
+  {theme:"Roulements", q:"Une butée (roulement butée) supporte :", a:["Uniquement des efforts axiaux","Uniquement des efforts radiaux","Radial et axial sans limite"], good:0,
+   ok:"✅ Oui : butée = efforts axiaux.", ko:"❌ À revoir : butée → axial (pas radial)."},
+  {theme:"Roulements", q:"Au montage/démontage d’un roulement, il faut :", a:["Frapper directement le roulement","Utiliser les outils adaptés","Le chauffer à la flamme"], good:1,
+   ok:"✅ Exact : outils adaptés, efforts maîtrisés.", ko:"❌ À revoir : pas de coups directs, outillage adapté."},
+
+  // MESURE (13-16)
+  {theme:"Mesure", q:"Les instruments de mesure servent à :", a:["Assembler des pièces","Contrôler des dimensions","Lubrifier"], good:1,
+   ok:"✅ Oui : mesurer/contrôler les dimensions.", ko:"❌ À revoir : mesure = contrôle dimensionnel."},
+  {theme:"Mesure", q:"Le pied à coulisse permet :", a:["Uniquement les mesures extérieures","Mesures extérieures et intérieures","Uniquement les profondeurs"], good:1,
+   ok:"✅ Exact : extérieures + intérieures (+ profondeur selon modèle).", ko:"❌ À revoir : le pied à coulisse sert aux mesures ext. et int."},
+  {theme:"Mesure", q:"Le micromètre (Palmer) permet une mesure :", a:["Au millimètre","Au centième de millimètre","Au dixième de millimètre"], good:1,
+   ok:"✅ Oui : précision typique au 1/100 mm.", ko:"❌ À revoir : Palmer = précision fine (souvent 1/100 mm)."},
+  {theme:"Mesure", q:"Le jeu de cales permet de :", a:["Mesurer des jeux de fonctionnement","Serrer au couple","Tracer une vue"], good:0,
+   ok:"✅ Exact : jeu de cales → mesure de jeux/écarts.", ko:"❌ À revoir : les cales servent à mesurer des jeux."},
+
+  // DESSIN TECHNIQUE (17-20)
+  {theme:"Dessin technique", q:"Le dessin technique sert à :", a:["Décorer un document","Communiquer des informations techniques","Lubrifier un mécanisme"], good:1,
+   ok:"✅ Oui : c’est un langage technique.", ko:"❌ À revoir : dessin technique = communication normalisée."},
+  {theme:"Dessin technique", q:"Le dessin d’ensemble permet :", a:["De fabriquer une pièce","De comprendre le montage d’un ensemble","De mesurer un jeu"], good:1,
+   ok:"✅ Exact : il montre l’assemblage et les relations entre pièces.", ko:"❌ À revoir : dessin d’ensemble = compréhension du montage."},
+  {theme:"Dessin technique", q:"Le dessin de définition sert à :", a:["Assembler un mécanisme","Fabriquer une pièce","Lubrifier un organe"], good:1,
+   ok:"✅ Oui : définition = fabrication d’une pièce.", ko:"❌ À revoir : définition = toutes les infos pour fabriquer."},
+  {theme:"Dessin technique", q:"Pourquoi le dessin technique est-il normalisé ?", a:["Pour être esthétique","Pour être compris partout","Pour aller plus vite"], good:1,
+   ok:"✅ Exact : normalisation = compréhension sans ambiguïté.", ko:"❌ À revoir : normalisé pour éviter les ambiguïtés."}
+];
+
+// Conseils par thème (si faible ou moyen)
+const themeAdvice = {
+  "Serrage":[
+    "Revoir : filetage (taraudage, pas) et unités (couple en N·m).",
+    "En atelier : s’exercer à identifier pas/diamètre et à serrer au couple (méthode)."
+  ],
+  "Assemblages":[
+    "Revoir : démontable vs non démontable + critères de choix (fonction/contraintes).",
+    "Revoir : freinage (adhérence vs obstacle) + collage (cisaillement, éviter pelage)."
+  ],
+  "Roulements":[
+    "Revoir : rôle (réduction frottements) + constitution (2 bagues + éléments roulants).",
+    "En atelier : règles de montage/démontage (effort sur la bonne bague, outillage)."
+  ],
+  "Mesure":[
+    "Revoir : pied à coulisse / micromètre / jeu de cales (usage + lecture).",
+    "En atelier : propreté, positionnement, force de mesure, répétabilité."
+  ],
+  "Dessin technique":[
+    "Revoir : dessin d’ensemble vs dessin de définition (objectif et contenu).",
+    "Revoir : normalisation (lecture de plans, symboles, tolérances si vues)."
+  ]
+};
+
+let userAnswers = {};
+let validated = {};
+let totalCorrect = 0;
+
+// thèmes
+const themes = [...new Set(questions.map(x=>x.theme))];
+const themeScore = {}; const themeMax = {};
+themes.forEach(t=>{themeScore[t]=0; themeMax[t]=0;});
+questions.forEach(q=>themeMax[q.theme]++);
+
+// Render questions
+const area = document.getElementById("questionsArea");
+
+questions.forEach((item,idx)=>{
+  const n = idx+1;
+  const box = document.createElement("div");
+  box.className = "question-box";
+  box.id = "q"+n;
+
+  box.innerHTML = `
+    <h3>Question ${n} — <span class="muted">${item.theme}</span></h3>
+    <p>${item.q}</p>
+    ${item.a.map((txt,i)=>`<div class="answer-option" data-q="${n}" data-a="${i+1}">${txt}</div>`).join("")}
+    <button class="validate-btn" id="btn${n}">Valider ma réponse</button>
+    <div class="feedback" id="feedback${n}"></div>
+  `;
+  area.appendChild(box);
+});
+
+// click options
+area.addEventListener("click",(e)=>{
+  const opt = e.target.closest(".answer-option");
+  if(!opt) return;
+  const q = parseInt(opt.dataset.q,10);
+  const a = parseInt(opt.dataset.a,10);
+  if(validated[q]) return;
+
+  userAnswers[q]=a;
+  const box = document.getElementById("q"+q);
+  box.querySelectorAll(".answer-option").forEach(x=>x.classList.remove("selected"));
+  opt.classList.add("selected");
+});
+
+function validateQuestion(q){
+  if(validated[q]) return;
+  if(!userAnswers[q]){
+    alert("Veuillez sélectionner une réponse avant de valider.");
+    return;
+  }
+  validated[q]=true;
+
+  const item = questions[q-1];
+  const box = document.getElementById("q"+q);
+  const fb = document.getElementById("feedback"+q);
+  const btn = document.getElementById("btn"+q);
+  const opts = box.querySelectorAll(".answer-option");
+
+  btn.disabled = true;
+
+  const chosen = userAnswers[q]-1;
+  const good = item.good;
+
+  // Reset selected style for clarity, then apply correct/wrong style
+  opts.forEach(o=>o.classList.remove("selected","correct-selected","wrong-selected"));
+
+  if(chosen===good){
+    box.classList.add("answered-correct");
+    opts[chosen].classList.add("correct-selected");
+    fb.className = "feedback show correct";
+    fb.innerHTML = item.ok || "✅ Bonne réponse.";
+    totalCorrect++;
+    themeScore[item.theme] += 1;
+  }else{
+    box.classList.add("answered-wrong");
+    opts[chosen].classList.add("wrong-selected");
+    fb.className = "feedback show wrong";
+    fb.innerHTML = item.ko || "❌ Mauvaise réponse. Révisez cette partie du cours.";
+  }
+
+  fb.scrollIntoView({behavior:"smooth",block:"nearest"});
+
+  if(Object.keys(validated).length===questions.length){
+    setTimeout(displayFinal,400);
+  }
+}
+
+function displayFinal(){
+  const note20 = totalCorrect; // 1 point par question
+  const pct = Math.round((note20 / 20) * 100);
+
+  const sb = document.getElementById("scoreBox");
+  const st = document.getElementById("scoreText");
+  const vt = document.getElementById("verdictText");
+
+  // Barème
+  let label="", cls="", msg="";
+  if(note20>=16){ label="ACQUIS"; cls="ok"; msg="Chapitre validé. Tu peux passer à la suite en gardant une révision rapide des thèmes moyens."; }
+  else if(note20>=12){ label="EN COURS D’ACQUISITION"; cls="mid"; msg="Niveau correct, mais renforce les points faibles avant de passer au chapitre suivant."; }
+  else { label="À REVOIR"; cls="no"; msg="Reprise conseillée : relire les leçons ciblées et refaire le QCM jusqu’à ≥ 12/20."; }
+
+  st.innerHTML = `<strong>Note :</strong> ${note20} / 20 (${pct} %)`;
+  vt.innerHTML = `<span class="badge ${cls}">${label}</span> ${msg}`;
+
+  // Forces / faiblesses par thème (4 questions/thème)
+  const strengths = document.getElementById("strengths");
+  const weaknesses = document.getElementById("weaknesses");
+  const advice = document.getElementById("advice");
+  strengths.innerHTML=""; weaknesses.innerHTML=""; advice.innerHTML="";
+
+  const strongThemes=[], midThemes=[], weakThemes=[];
+  themes.forEach(t=>{
+    const sc = themeScore[t];
+    const mx = themeMax[t]; // 4
+    if(sc===mx) strongThemes.push(t);
+    else if(sc<=1) weakThemes.push(t);
+    else midThemes.push(t);
+  });
+
+  if(strongThemes.length===0){
+    const li=document.createElement("li");
+    li.textContent="Aucun thème totalement acquis : vise 4/4 sur au moins 2 thèmes.";
+    strengths.appendChild(li);
+  }else{
+    strongThemes.forEach(t=>{
+      const li=document.createElement("li");
+      li.textContent=`${t} : ${themeScore[t]}/${themeMax[t]}`;
+      strengths.appendChild(li);
+    });
+  }
+
+  if(weakThemes.length===0){
+    const li=document.createElement("li");
+    li.textContent="Pas de point faible majeur. Consolide surtout les thèmes moyens.";
+    weaknesses.appendChild(li);
+  }else{
+    weakThemes.forEach(t=>{
+      const li=document.createElement("li");
+      li.textContent=`${t} : ${themeScore[t]}/${themeMax[t]}`;
+      weaknesses.appendChild(li);
+
+      (themeAdvice[t]||[]).forEach(c=>{
+        const li2=document.createElement("li");
+        li2.textContent=`${t} → ${c}`;
+        advice.appendChild(li2);
+      });
+    });
+  }
+
+  // Thèmes moyens : conseils
+  midThemes.forEach(t=>{
+    const li=document.createElement("li");
+    li.textContent=`${t} : ${themeScore[t]}/${themeMax[t]} (à consolider)`;
+    weaknesses.appendChild(li);
+
+    const li2=document.createElement("li");
+    li2.textContent=`${t} → Relire la leçon + refaire 5 questions d’entraînement (atelier).`;
+    advice.appendChild(li2);
+  });
+
+  // Si tout est fort, donner un conseil final
+  if(strongThemes.length===themes.length){
+    const li=document.createElement("li");
+    li.textContent="Bravo : tout est acquis. Garde une révision rapide avant intervention en atelier.";
+    advice.appendChild(li);
+  }
+
+  sb.classList.add("show");
+  sb.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+// Bind validate buttons
+for(let q=1;q<=questions.length;q++){
+  document.getElementById("btn"+q).addEventListener("click",()=>validateQuestion(q));
+}
+</script>
+
+</body>
+</html>

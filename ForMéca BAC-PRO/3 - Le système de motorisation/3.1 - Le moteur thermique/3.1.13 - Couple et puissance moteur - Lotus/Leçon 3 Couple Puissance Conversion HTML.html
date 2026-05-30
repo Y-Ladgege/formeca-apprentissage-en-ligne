@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couple et puissance moteur – Leçon 3.1.13 – Forméca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', Arial, sans-serif; background: linear-gradient(135deg, #e8f5f8 0%, #c5e5ec 100%); min-height: 100vh; padding: 20px; line-height: 1.6; color: #003d5c; }
+        .main-wrapper { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 1200px; margin: 0 auto; }
+        .inner-content { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* HEADER */
+        .header { background: linear-gradient(135deg, #c5e5ec 0%, #a8d8e8 100%); border: 2px solid #7fc4d8; border-radius: 15px; padding: 20px 30px; margin-bottom: 20px; position: relative; }
+        .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .badge-elearning { display: flex; align-items: center; gap: 10px; background: white; padding: 10px 15px; border-radius: 8px; font-size: 14px; color: #003d5c; font-weight: 600; }
+        .badge-elearning i { font-size: 28px; color: #003d5c; }
+        .logo-formeca-wrap { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); padding: 6px 10px; display: flex; align-items: center; }
+        .logo-formeca { height: 70px; width: auto; }
+        .title { font-size: 34px; color: #003d5c; text-align: center; margin: 15px 0 8px 0; font-weight: 800; }
+        .subtitle { text-align: center; color: #004d6b; font-size: 15px; font-weight: 600; }
+
+        /* INTRO COLUMNS */
+        .intro-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .fiche-box, .sommaire-box { background: linear-gradient(135deg, #e8f5f8 0%, #d0edf5 100%); border: 2px solid #7fc4d8; border-radius: 12px; padding: 20px; }
+        .fiche-box h3, .sommaire-box h3 { color: #003d5c; background: rgba(255,255,255,0.7); padding: 10px; border-radius: 6px; text-align: center; margin-bottom: 15px; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .fiche-box table { width: 100%; border-collapse: collapse; }
+        .fiche-box td { padding: 8px 5px; color: #003d5c; font-size: 14px; border-bottom: 1px solid rgba(127,196,216,0.3); }
+        .fiche-box td:first-child { font-weight: 700; width: 40%; }
+        .sommaire-box ol { margin-left: 20px; color: #003d5c; padding: 0; }
+        .sommaire-box li { padding: 6px 0; font-size: 14px; font-weight: 500; }
+        .sommaire-box a { color: #003d5c; text-decoration: none; transition: color 0.2s; }
+        .sommaire-box a:hover { color: #7fc4d8; text-decoration: underline; }
+
+        /* OBJECTIFS */
+        .objectifs-section { background: white; border: 2px solid #7fc4d8; border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+        .objectifs-section h2 { color: #003d5c; font-size: 20px; font-weight: 700; margin-bottom: 15px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .objectifs-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+        .objectif-badge { padding: 12px 18px; border-radius: 8px; text-align: center; color: white; font-weight: 700; flex: 1; min-width: 180px; font-size: 13px; transition: transform 0.2s; }
+        .objectif-badge:hover { transform: translateY(-2px); }
+        .badge-bleu1 { background: #9fd4e2; }
+        .badge-bleu2 { background: #7fc4d8; }
+        .badge-bleu3 { background: #5ab3c7; }
+        .badge-bleu4 { background: #4a9bb5; }
+
+        /* CONTENT SECTIONS */
+        .content-section { background: white; border: 2px solid #7fc4d8; border-radius: 15px; padding: 30px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.06); }
+        .content-section h2 { color: #003d5c; font-size: 24px; font-weight: 800; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #7fc4d8; display: flex; align-items: center; gap: 10px; }
+        .content-section h3 { color: #003d5c; font-size: 18px; font-weight: 700; margin: 20px 0 10px 0; }
+        .content-section p { color: #004d6b; margin-bottom: 14px; line-height: 1.8; font-size: 15px; }
+        .content-section ul, .content-section ol { margin: 10px 0 14px 28px; color: #004d6b; }
+        .content-section li { margin-bottom: 8px; font-size: 15px; line-height: 1.7; }
+        .page-badge { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #7fc4d8, #5ab3c7); color: white; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 14px; }
+
+        /* FORMULE */
+        .formula-box { background: linear-gradient(135deg, #003d5c 0%, #004d6b 100%); color: white; border-radius: 12px; padding: 20px 26px; margin: 18px 0; text-align: center; box-shadow: 0 3px 10px rgba(0,61,92,0.25); }
+        .formula-box .formula { font-size: 28px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 8px; font-family: 'Montserrat', Arial, sans-serif; }
+        .formula-box .formula-legend { font-size: 13px; font-weight: 500; opacity: 0.92; }
+
+        /* À RETENIR */
+        .retenir-box { background: #fffbf0; border: 2px solid #f39c12; border-radius: 10px; padding: 20px 24px; margin: 20px 0 0 0; }
+        .retenir-box h4 { color: #003d5c; font-size: 15px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .retenir-box h4 i { color: #f39c12; font-size: 18px; }
+        .retenir-box ul { list-style: none; padding: 0; margin: 0; }
+        .retenir-box li { color: #003d5c; padding: 5px 0 5px 28px; position: relative; font-size: 14px; font-weight: 500; line-height: 1.6; }
+        .retenir-box li::before { content: ""; font-family: "bootstrap-icons"; position: absolute; left: 0; color: #f39c12; font-weight: 900; font-size: 16px; }
+
+        /* INFO BOX */
+        .info-box { background: #e8f5f8; border: 2px solid #7fc4d8; border-radius: 10px; padding: 18px 22px; margin: 16px 0; display: flex; gap: 14px; align-items: flex-start; }
+        .info-box i { color: #5ab3c7; font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+        .info-box p { margin: 0; color: #003d5c; font-size: 14px; font-weight: 500; line-height: 1.7; }
+
+        /* TABLE */
+        .data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        .data-table th { background: #003d5c; color: white; padding: 10px 14px; text-align: left; font-weight: 700; }
+        .data-table td { padding: 9px 14px; border-bottom: 1px solid #d0edf5; color: #003d5c; }
+        .data-table tr:nth-child(even) td { background: #f0f9fb; }
+        .data-table tr:hover td { background: #e8f5f8; }
+
+        /* PDF SECTION */
+        .pdf-section { background: linear-gradient(135deg, #f0f9fb 0%, #e8f5f8 100%); border-radius: 15px; padding: 22px; margin-bottom: 20px; text-align: center; border: 2px solid #7fc4d8; }
+        .pdf-btn { display: inline-flex; align-items: center; gap: 8px; background: #7fc4d8; color: white; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: all 0.2s; }
+        .pdf-btn:hover { background: #5ab3c7; transform: translateY(-2px); }
+
+        /* QCM SECTION */
+        .qcm-section { background: linear-gradient(135deg, #f0f9fb 0%, #e0f2f7 100%); border-radius: 15px; padding: 30px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .qcm-section h2 { color: #003d5c; font-size: 24px; font-weight: 800; margin-bottom: 8px; text-align: center; padding-bottom: 12px; border-bottom: 3px solid #7fc4d8; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .qcm-intro { text-align: center; color: #004d6b; margin-bottom: 25px; font-size: 14px; font-weight: 500; }
+        .question-box { background: white; border: 2px solid #e8f5f8; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .question-box.answered-correct { border-color: #4caf50; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); }
+        .question-box.answered-wrong { border-color: #f44336; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
+        .question-box h3 { color: #003d5c; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+        .question-box > p { margin-bottom: 14px; font-size: 15px; font-weight: 600; color: #003d5c; }
+        .answer-option { background: white; border: 2px solid #7fc4d8; border-radius: 8px; padding: 11px 16px; margin: 8px 0; cursor: pointer; transition: all 0.2s; font-size: 14px; font-family: 'Montserrat', Arial, sans-serif; font-weight: 500; color: #003d5c; }
+        .answer-option:hover { background: #e8f5f8; transform: translateX(5px); }
+        .answer-option.selected { border-color: #003d5c; background: #e3f2fd; }
+        .answer-option.correct-selected { border-color: #4caf50; background: #c8e6c9; }
+        .answer-option.wrong-selected { border-color: #f44336; background: #ffcdd2; }
+        .validate-btn { background: #7fc4d8; color: white; border: none; border-radius: 8px; padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 14px; transition: all 0.2s; font-family: 'Montserrat', Arial, sans-serif; }
+        .validate-btn:hover { background: #5ab3c7; transform: translateY(-2px); }
+        .validate-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .feedback { margin-top: 14px; padding: 13px 18px; border-radius: 8px; display: none; font-size: 14px; font-weight: 600; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .feedback.wrong { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .score-box { background: linear-gradient(135deg, #c5e5ec 0%, #a8d8e8 100%); border: 2px solid #7fc4d8; border-radius: 15px; padding: 30px; margin-top: 25px; text-align: center; display: none; }
+        .score-box.show { display: block; }
+        .score-box h3 { font-size: 22px; color: #003d5c; margin-bottom: 10px; font-weight: 800; }
+        .score-box p { font-size: 17px; color: #003d5c; font-weight: 600; }
+
+        /* FOOTER */
+        footer { background: #003d5c; color: white; text-align: center; padding: 20px; font-size: 13px; font-weight: 500; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .intro-columns { grid-template-columns: 1fr; }
+            .objectifs-badges { flex-direction: column; }
+            .objectif-badge { min-width: unset; }
+            .title { font-size: 24px; }
+            .content-section h2, .qcm-section h2 { font-size: 20px; }
+            .inner-content { padding: 12px; }
+            .content-section, .qcm-section { padding: 20px; }
+            body { padding: 10px; }
+            .formula-box .formula { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+  <div class="inner-content">
+
+    <!-- ══ HEADER ══ -->
+    <div class="header">
+      <div class="header-top">
+        <div class="badge-elearning">
+          <i class="bi bi-tools"></i>
+          <span>Cours en ligne</span>
+        </div>
+        <div class="logo-formeca-wrap">
+          <img src="data:image/webp;base64,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" alt="Logo Forméca" class="logo-formeca">
+        </div>
+      </div>
+      <h1 class="title">Couple et puissance moteur</h1>
+      <p class="subtitle">Module 3.1 – Leçon 3.1.13 – Niveau Bac Pro</p>
+    </div>
+
+    <!-- ══ FICHE + SOMMAIRE ══ -->
+    <div class="intro-columns">
+      <div class="fiche-box">
+        <h3><i class="bi bi-journal-text"></i> Fiche du cours</h3>
+        <table>
+          <tr><td>Format :</td><td>Livre interactif</td></tr>
+          <tr><td>Public :</td><td>Bac Pro</td></tr>
+          <tr><td>Durée indicative :</td><td>1h00 à 1h15</td></tr>
+          <tr><td>Module :</td><td>Module 3.1 – Leçon 3.1.13</td></tr>
+          <tr><td>Formateur :</td><td>Yves Jaeger</td></tr>
+        </table>
+      </div>
+      <div class="sommaire-box">
+        <h3><i class="bi bi-list-ol"></i> Sommaire</h3>
+        <ol>
+          <li><a href="#section1">Le couple moteur</a></li>
+          <li><a href="#section2">La puissance moteur</a></li>
+          <li><a href="#section3">Relation couple / puissance</a></li>
+          <li><a href="#section4">Les courbes moteur</a></li>
+          <li><a href="#evaluation">Évaluation formative (non notée)</a></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ══ OBJECTIFS ══ -->
+    <div class="objectifs-section">
+      <h2><i class="bi bi-bullseye"></i> Objectifs pédagogiques</h2>
+      <div class="objectifs-badges">
+        <div class="objectif-badge badge-bleu1">Définir le couple et son unité</div>
+        <div class="objectif-badge badge-bleu2">Définir la puissance et son unité</div>
+        <div class="objectif-badge badge-bleu3">Comprendre la relation P = C × ω</div>
+        <div class="objectif-badge badge-bleu4">Interpréter les courbes moteur</div>
+      </div>
+    </div>
+
+    <!-- ══ PDF ══ -->
+    <div class="pdf-section">
+      <p style="font-style: italic; color: #004d6b; margin-bottom: 14px; font-size: 14px; font-weight: 500;">
+        <i class="bi bi-info-circle" style="color:#5ab3c7"></i>&nbsp;
+        Les schémas (bielle-manivelle, formule du couple, formule de puissance, courbes couple/puissance) sont disponibles dans le cours complet en PDF.
+      </p>
+      <a href="#" class="pdf-btn">
+        <i class="bi bi-file-earmark-pdf-fill"></i> Télécharger le cours complet en PDF
+      </a>
+    </div>
+
+    <!-- ══ SECTION 1 ══ -->
+    <div class="content-section" id="section1">
+      <span class="page-badge"><i class="bi bi-file-earmark-text"></i> Page 1 / 4</span>
+      <h2><i class="bi bi-arrow-clockwise"></i> 1. Le couple moteur</h2>
+
+      <p>Le <strong>couple</strong> et la <strong>puissance</strong> sont les deux grandeurs fondamentales qui caractérisent les performances d'un moteur thermique. Elles permettent d'évaluer les capacités d'<strong>accélération</strong>, de <strong>traction</strong> et de <strong>vitesse</strong> d'un véhicule.</p>
+
+      <h3>Définition du couple moteur</h3>
+      <p>Le couple moteur représente la <strong>capacité d'un moteur à produire une force de rotation</strong>. Dans un moteur thermique, il résulte de la pression exercée par les gaz brûlés sur le piston, transmise au vilebrequin par la bielle.</p>
+
+      <div class="formula-box">
+        <div class="formula">C = F × r</div>
+        <div class="formula-legend">C = couple (Nm) · F = force (N) · r = bras de levier (m)</div>
+      </div>
+
+      <h3>Interprétation pratique</h3>
+      <p>Un couple élevé permet au moteur de fournir un effort important <strong>même à faible vitesse</strong>. Cette caractéristique est particulièrement utile lors :</p>
+      <ul>
+        <li>des démarrages ;</li>
+        <li>des montées ;</li>
+        <li>du remorquage ;</li>
+        <li>des accélérations à bas régime.</li>
+      </ul>
+
+      <div class="info-box">
+        <i class="bi bi-lightbulb-fill"></i>
+        <p>L'unité officielle du couple moteur est le <strong>Newton-mètre (Nm)</strong>. C'est cette valeur qui figure sur la fiche technique d'un véhicule pour caractériser sa « force ».</p>
+      </div>
+
+      <div class="retenir-box">
+        <h4><i class="bi bi-pin-angle-fill"></i> À RETENIR</h4>
+        <ul>
+          <li>Le couple représente une force de rotation.</li>
+          <li>Formule : <strong>C = F × r</strong>.</li>
+          <li>Unité : le Newton-mètre (Nm).</li>
+          <li>Un couple élevé = effort à bas régime (remorquage, démarrage, montée).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 2 ══ -->
+    <div class="content-section" id="section2">
+      <span class="page-badge"><i class="bi bi-file-earmark-text"></i> Page 2 / 4</span>
+      <h2><i class="bi bi-speedometer2"></i> 2. La puissance moteur</h2>
+
+      <h3>Définition de la puissance</h3>
+      <p>La puissance représente la <strong>quantité de travail fournie par unité de temps</strong>. Elle mesure la capacité du moteur à transformer l'énergie chimique du carburant en énergie mécanique.</p>
+
+      <h3>Unités de mesure</h3>
+      <p>Autrefois exprimée en cheval-vapeur (CV), la puissance est aujourd'hui exprimée en <strong>watt (W)</strong> ou <strong>kilowatt (kW)</strong>.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Conversion</th><th>Équivalence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1 CV</td><td>≈ 736 W</td></tr>
+          <tr><td>1 kW</td><td>≈ 1,36 CV</td></tr>
+          <tr><td>100 kW</td><td>≈ 136 CV</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Calcul de la puissance</h3>
+      <p>La puissance dépend du couple et de la <strong>vitesse de rotation</strong> du moteur. Plus le moteur tourne vite avec un couple donné, plus il produit de puissance.</p>
+
+      <div class="formula-box">
+        <div class="formula">P = C × ω</div>
+        <div class="formula-legend">P = puissance (W) · C = couple (Nm) · ω = vitesse angulaire (rad/s)</div>
+      </div>
+
+      <div class="info-box">
+        <i class="bi bi-calculator-fill"></i>
+        <p>La vitesse angulaire ω se calcule à partir du régime moteur N (tr/min) : <strong>ω = 2π × N / 60</strong>. Un moteur de 200 Nm à 5 000 tr/min développe donc environ 105 kW (≈ 143 CV).</p>
+      </div>
+
+      <div class="retenir-box">
+        <h4><i class="bi bi-pin-angle-fill"></i> À RETENIR</h4>
+        <ul>
+          <li>La puissance = travail fourni par unité de temps.</li>
+          <li>Unités : watt (W) ou kilowatt (kW). 1 CV ≈ 736 W.</li>
+          <li>Formule : <strong>P = C × ω</strong>.</li>
+          <li>Une puissance élevée = capacité à atteindre des vitesses élevées.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 3 ══ -->
+    <div class="content-section" id="section3">
+      <span class="page-badge"><i class="bi bi-file-earmark-text"></i> Page 3 / 4</span>
+      <h2><i class="bi bi-arrow-left-right"></i> 3. Relation couple / puissance</h2>
+
+      <p>Le couple et la puissance sont <strong>directement liés au régime moteur</strong>. Leurs rôles respectifs évoluent selon la vitesse de rotation.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Régime moteur</th><th>Grandeur dominante</th><th>Conséquence pratique</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Bas régime</td><td>Couple</td><td>Effort, démarrage, traction</td></tr>
+          <tr><td>Moyen régime</td><td>Couple maximal</td><td>Reprises, accélérations</td></tr>
+          <tr><td>Haut régime</td><td>Puissance maximale</td><td>Vitesse de pointe</td></tr>
+        </tbody>
+      </table>
+
+      <p>En résumé&nbsp;: le <strong>couple favorise la traction</strong>, tandis que la <strong>puissance favorise la vitesse</strong>.</p>
+
+      <div class="info-box">
+        <i class="bi bi-info-circle-fill"></i>
+        <p>C'est pour cette raison qu'un tracteur agricole ou un poids lourd privilégient un fort couple à bas régime, alors qu'une voiture de sport recherche une puissance élevée à haut régime.</p>
+      </div>
+
+      <div class="retenir-box">
+        <h4><i class="bi bi-pin-angle-fill"></i> À RETENIR</h4>
+        <ul>
+          <li>À bas régime, le moteur produit principalement du couple.</li>
+          <li>À haut régime, la puissance devient dominante.</li>
+          <li>Couple → traction · Puissance → vitesse.</li>
+          <li>Un moteur puissant n'est pas forcément celui qui a le plus de couple.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 4 ══ -->
+    <div class="content-section" id="section4">
+      <span class="page-badge"><i class="bi bi-file-earmark-text"></i> Page 4 / 4</span>
+      <h2><i class="bi bi-graph-up"></i> 4. Les courbes moteur</h2>
+
+      <p>Les <strong>courbes moteur</strong> permettent de visualiser l'évolution du couple et de la puissance en fonction du régime moteur. Elles sont fournies par le constructeur pour chaque motorisation.</p>
+
+      <h3>Lecture des courbes</h3>
+      <ul>
+        <li>La courbe de <strong>couple</strong> atteint généralement son maximum à <strong>moyen régime</strong> (2 000 à 4 000 tr/min selon les moteurs).</li>
+        <li>La courbe de <strong>puissance</strong> atteint son maximum à <strong>haut régime</strong> (5 000 à 7 000 tr/min selon les moteurs).</li>
+        <li>Les deux courbes se croisent en un point caractéristique du moteur.</li>
+      </ul>
+
+      <div class="info-box">
+        <i class="bi bi-tools"></i>
+        <p>En atelier, l'analyse des courbes moteur permet de diagnostiquer une perte de performance : un couple maximal trop bas peut révéler un problème d'admission, de compression ou d'injection.</p>
+      </div>
+
+      <h3>Choix d'un moteur selon l'usage</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>Usage du véhicule</th><th>Priorité moteur</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Utilitaire / remorquage</td><td>Fort couple à bas régime</td></tr>
+          <tr><td>Conduite urbaine</td><td>Couple à bas/moyen régime</td></tr>
+          <tr><td>Berline routière</td><td>Équilibre couple / puissance</td></tr>
+          <tr><td>Véhicule sportif</td><td>Puissance élevée à haut régime</td></tr>
+        </tbody>
+      </table>
+
+      <div class="retenir-box">
+        <h4><i class="bi bi-pin-angle-fill"></i> À RETENIR</h4>
+        <ul>
+          <li>Les courbes moteur tracent couple et puissance en fonction du régime.</li>
+          <li>Couple maximal : à moyen régime.</li>
+          <li>Puissance maximale : à haut régime.</li>
+          <li>Le choix d'un moteur dépend de l'usage du véhicule.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ QCM ══ -->
+    <div class="qcm-section" id="evaluation">
+      <h2><i class="bi bi-pencil-square"></i> Évaluation formative – Leçon 3.1.13</h2>
+      <p class="qcm-intro">(Non notée – Pour vérifier vos connaissances)</p>
+
+      <!-- Q1 -->
+      <div class="question-box" id="q1">
+        <h3>Question 1</h3>
+        <p>Que représente le couple moteur ?</p>
+        <div class="answer-option" onclick="selectAnswer(1, 1)">La quantité d'essence consommée</div>
+        <div class="answer-option" onclick="selectAnswer(1, 2)">La capacité du moteur à produire une force de rotation</div>
+        <div class="answer-option" onclick="selectAnswer(1, 3)">La vitesse maximale du véhicule</div>
+        <button class="validate-btn" id="btn1" onclick="validateQuestion(1)">Valider ma réponse</button>
+        <div class="feedback" id="feedback1"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-box" id="q2">
+        <h3>Question 2</h3>
+        <p>Quelle est l'unité officielle du couple moteur ?</p>
+        <div class="answer-option" onclick="selectAnswer(2, 1)">Le cheval-vapeur (CV)</div>
+        <div class="answer-option" onclick="selectAnswer(2, 2)">Le watt (W)</div>
+        <div class="answer-option" onclick="selectAnswer(2, 3)">Le Newton-mètre (Nm)</div>
+        <button class="validate-btn" id="btn2" onclick="validateQuestion(2)">Valider ma réponse</button>
+        <div class="feedback" id="feedback2"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-box" id="q3">
+        <h3>Question 3</h3>
+        <p>Que représente la puissance d'un moteur ?</p>
+        <div class="answer-option" onclick="selectAnswer(3, 1)">La quantité de travail fournie par unité de temps</div>
+        <div class="answer-option" onclick="selectAnswer(3, 2)">La force exercée par les gaz sur le piston</div>
+        <div class="answer-option" onclick="selectAnswer(3, 3)">Le volume des cylindres</div>
+        <button class="validate-btn" id="btn3" onclick="validateQuestion(3)">Valider ma réponse</button>
+        <div class="feedback" id="feedback3"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-box" id="q4">
+        <h3>Question 4</h3>
+        <p>Quelle formule lie le couple, la puissance et la vitesse angulaire ?</p>
+        <div class="answer-option" onclick="selectAnswer(4, 1)">P = C + ω</div>
+        <div class="answer-option" onclick="selectAnswer(4, 2)">P = C × ω</div>
+        <div class="answer-option" onclick="selectAnswer(4, 3)">P = C ÷ ω</div>
+        <button class="validate-btn" id="btn4" onclick="validateQuestion(4)">Valider ma réponse</button>
+        <div class="feedback" id="feedback4"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-box" id="q5">
+        <h3>Question 5</h3>
+        <p>À quel régime le couple moteur est-il généralement maximal ?</p>
+        <div class="answer-option" onclick="selectAnswer(5, 1)">Au ralenti</div>
+        <div class="answer-option" onclick="selectAnswer(5, 2)">À moyen régime</div>
+        <div class="answer-option" onclick="selectAnswer(5, 3)">Au régime maximal</div>
+        <button class="validate-btn" id="btn5" onclick="validateQuestion(5)">Valider ma réponse</button>
+        <div class="feedback" id="feedback5"></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-box" id="q6">
+        <h3>Question 6</h3>
+        <p>Quelle est la différence entre couple et puissance ?</p>
+        <div class="answer-option" onclick="selectAnswer(6, 1)">Aucune, ce sont deux synonymes</div>
+        <div class="answer-option" onclick="selectAnswer(6, 2)">Le couple = vitesse, la puissance = force</div>
+        <div class="answer-option" onclick="selectAnswer(6, 3)">Le couple = force de rotation, la puissance = travail par unité de temps</div>
+        <button class="validate-btn" id="btn6" onclick="validateQuestion(6)">Valider ma réponse</button>
+        <div class="feedback" id="feedback6"></div>
+      </div>
+
+      <div class="score-box" id="scoreBox">
+        <h3><i class="bi bi-trophy-fill"></i> Résultat final</h3>
+        <p id="scoreText"></p>
+      </div>
+    </div>
+
+  </div><!-- /inner-content -->
+
+  <footer>
+    <p>© 2025 <strong>Forméca</strong> – Formation en mécanique automobile | Tous droits réservés</p>
+  </footer>
+</div><!-- /main-wrapper -->
+
+<script>
+  const correctAnswers = { 1: 2, 2: 3, 3: 1, 4: 2, 5: 2, 6: 3 };
+  const totalQuestions = 6;
+  let userAnswers = {};
+  let validatedQuestions = {};
+
+  function selectAnswer(questionNum, answerNum) {
+    if (validatedQuestions[questionNum]) return;
+    userAnswers[questionNum] = answerNum;
+    const questionBox = document.getElementById('q' + questionNum);
+    const options = questionBox.querySelectorAll('.answer-option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    options[answerNum - 1].classList.add('selected');
+  }
+
+  function validateQuestion(questionNum) {
+    if (!userAnswers[questionNum]) {
+      alert('Veuillez sélectionner une réponse avant de valider.');
+      return;
+    }
+
+    validatedQuestions[questionNum] = true;
+    const questionBox = document.getElementById('q' + questionNum);
+    const feedback = document.getElementById('feedback' + questionNum);
+    const btn = document.getElementById('btn' + questionNum);
+    const options = questionBox.querySelectorAll('.answer-option');
+    btn.disabled = true;
+
+    const isCorrect = userAnswers[questionNum] === correctAnswers[questionNum];
+
+    if (isCorrect) {
+      questionBox.classList.add('answered-correct');
+      options[userAnswers[questionNum] - 1].classList.remove('selected');
+      options[userAnswers[questionNum] - 1].classList.add('correct-selected');
+      feedback.className = 'feedback show correct';
+
+      const messages = {
+        1: '✅ Exact ! Le couple représente la capacité d\'un moteur à produire une force de rotation.',
+        2: '✅ Bravo ! Le couple s\'exprime en Newton-mètre (Nm).',
+        3: '✅ Correct ! La puissance représente la quantité de travail fournie par unité de temps.',
+        4: '✅ Exact ! La formule P = C × ω lie puissance, couple et vitesse angulaire.',
+        5: '✅ Bien vu ! Le couple maximal est généralement atteint à moyen régime (entre 2 000 et 4 000 tr/min).',
+        6: '✅ Parfait ! Le couple représente une force de rotation, la puissance représente un travail par unité de temps.'
+      };
+      feedback.innerHTML = messages[questionNum];
+    } else {
+      questionBox.classList.add('answered-wrong');
+      options[userAnswers[questionNum] - 1].classList.remove('selected');
+      options[userAnswers[questionNum] - 1].classList.add('wrong-selected');
+      feedback.className = 'feedback show wrong';
+      feedback.innerHTML = '❌ Mauvaise réponse. Relisez cette partie du cours.';
+    }
+
+    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    checkAllAnswered();
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(validatedQuestions).length === totalQuestions) {
+      setTimeout(displayScore, 500);
+    }
+  }
+
+  function displayScore() {
+    let correct = 0;
+    for (let i = 1; i <= totalQuestions; i++) {
+      if (userAnswers[i] === correctAnswers[i]) correct++;
+    }
+
+    const scoreBox = document.getElementById('scoreBox');
+    const scoreText = document.getElementById('scoreText');
+    const percentage = Math.round((correct / totalQuestions) * 100);
+
+    let message = '';
+    if (percentage === 100) {
+      message = `🎉 Excellent ! Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Parfaite maîtrise de la leçon !`;
+    } else if (percentage >= 80) {
+      message = `👍 Très bien ! Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Bonne compréhension du couple et de la puissance.`;
+    } else if (percentage >= 60) {
+      message = `📖 Pas mal ! Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Révisez les points manquants.`;
+    } else {
+      message = `🔁 Vous avez obtenu ${correct}/${totalQuestions} (${percentage}%). Il est recommandé de relire le cours attentivement.`;
+    }
+
+    scoreText.textContent = message;
+    scoreBox.classList.add('show');
+    scoreBox.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
